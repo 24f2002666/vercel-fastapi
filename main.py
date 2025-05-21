@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import json
+from typing import List
 
 # Load the JSON data
 with open('q-vercel-python.json') as f:
@@ -21,7 +22,7 @@ app.add_middleware(
 
 # Create an endpoint to get student marks
 @app.get("/api")
-async def get_marks(name: list[str]):
+async def get_marks(name: List[str]):  # Expecting a list of 'name' query parameters
     marks = []
     
     # Create a dictionary for quick lookup
@@ -36,4 +37,3 @@ async def get_marks(name: list[str]):
             marks.append(None)  # If the student name is not found, append None
 
     return JSONResponse(content={"marks": marks})
-
